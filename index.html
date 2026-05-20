@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipo Matero | Mates Premium — Mendoza</title>
+  <meta name="description" content="Mates artesanales de calidad premium. Imperiales, Torpedos, Camioneros y más. Envíos a todo el país desde Mendoza.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#inicio" class="logo">
+        <img src="images/logo.png" alt="Equipo Matero" class="logo-img">
+      </a>
+      <nav class="nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Abrir carrito">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg-circle hero-bg-circle--1"></div>
+    <div class="hero-bg-circle hero-bg-circle--2"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Mendoza · Envíos a todo el país</p>
+      <h1 class="hero-title">SUMATE<br><span>AL EQUIPO</span></h1>
+      <p class="hero-desc">Mates artesanales de calidad premium.<br>Elegí el tuyo y pedilo fácil por WhatsApp.</p>
+      <div class="hero-actions">
+        <a href="#productos" class="btn-primary">Ver productos</a>
+        <a href="https://wa.me/542615874339?text=Hola!%20Quiero%20consultar%20sobre%20los%20mates." class="btn-ghost" target="_blank">Consultar ahora</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="images/logo.png" alt="Equipo Matero" class="hero-logo">
+    </div>
+  </section>
+
+  <!-- FEATURES STRIP -->
+  <div class="features-strip">
+    <div class="feature">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <span>Envíos a todo el país</span>
+    </div>
+    <div class="feature-divider"></div>
+    <div class="feature">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Calidad artesanal</span>
+    </div>
+    <div class="feature-divider"></div>
+    <div class="feature">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>Atención personalizada</span>
+    </div>
+    <div class="feature-divider"></div>
+    <div class="feature">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>Mates Premium</span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="products-section" id="productos">
+    <div class="section-header">
+      <h2>Nuestros Productos</h2>
+      <p>Encontrá el mate que te representa</p>
+    </div>
+
+    <!-- CATEGORY FILTERS -->
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="imperiales">Imperiales</button>
+      <button class="filter-btn" data-filter="torpedos">Torpedos</button>
+      <button class="filter-btn" data-filter="camioneros">Camioneros</button>
+      <button class="filter-btn" data-filter="ranchero">Ranchero</button>
+      <button class="filter-btn" data-filter="galleta">Galleta</button>
+      <button class="filter-btn" data-filter="materas">Materas</button>
+      <button class="filter-btn" data-filter="bombillas">Bombillas</button>
+      <button class="filter-btn" data-filter="bombillones">Bombillones</button>
+      <button class="filter-btn" data-filter="termos">Termos</button>
+    </div>
+
+    <!-- PRODUCTS GRID (rendered by JS) -->
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="nosotros">
+    <div class="about-content">
+      <p class="about-tag">Sobre Nosotros</p>
+      <h2>Es tu momento...</h2>
+      <p>En <strong>Equipo Matero</strong> creemos que el mate no es solo una bebida, es una forma de vida. Por eso seleccionamos cada pieza con cuidado, combinando materiales de calidad con el trabajo artesanal de nuestra tierra.</p>
+      <p>Somos de <strong>Mendoza</strong> y llegamos a todo el país.</p>
+      <a href="https://www.instagram.com/equipomatero.mza/" target="_blank" class="btn-outline">Seguinos en Instagram</a>
+    </div>
+    <div class="about-visual">
+      <div class="about-ring"></div>
+      <img src="images/logo.png" alt="Equipo Matero" class="about-logo">
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contacto">
+    <div class="contact-inner">
+      <h2>¿Tenés dudas? Escribinos</h2>
+      <p>Estamos para ayudarte a elegir el mate perfecto.</p>
+      <a href="https://wa.me/542615874339?text=Hola!%20Quiero%20consultar%20sobre%20los%20mates." class="btn-whatsapp-lg" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+      </a>
+      <div class="contact-socials">
+        <a href="https://www.instagram.com/equipomatero.mza/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @equipomatero.mza
+        </a>
+        <a href="https://www.tiktok.com/@equipomatero.mza" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.67a8.18 8.18 0 004.78 1.52V6.7a4.85 4.85 0 01-1.01-.01z"/></svg>
+          @equipomatero.mza
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="images/logo.png" alt="Equipo Matero" class="footer-logo-img">
+    </div>
+    <p>Mendoza, Argentina · Envíos a todo el país</p>
+    <p class="footer-copy">© 2025 Equipo Matero. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- CART OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- CART SIDEBAR -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Tu pedido</h3>
+      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <button class="btn-whatsapp-cart" id="checkoutBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Finalizar pedido por WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- WHATSAPP FLOAT -->
+  <a class="whatsapp-float" href="https://wa.me/542615874339?text=Hola!%20Quiero%20consultar%20sobre%20los%20mates." target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="app.js"></script>
+</body>
+</html>
