@@ -1,254 +1,13 @@
 /* ===================================================
    EQUIPO MATERO — app.js
+   Los productos se leen desde Firebase Firestore.
+   Si no hay conexion, usa los defaults de products-data.js.
    =================================================== */
 
-// ── PRODUCTS DATA ──
-const products = [
-
-  // ── MATES IMPERIALES ──
-  {
-    id: 1,
-    category: 'imperiales',
-    categoryLabel: 'Imperial',
-    name: 'Imperial Alpaca Liso',
-    variant: 'Cuero Negro',
-    details: ['Imperial de Calabaza', 'Forrado en Cuero Liso Negro', 'Virola de Alpaca Lisa'],
-    price: 35000,
-    image: 'images/Imperial_Alpaca_Liso.png',
-    featured: false
-  },
-  {
-    id: 2,
-    category: 'imperiales',
-    categoryLabel: 'Imperial',
-    name: 'Imperial Alpaca Lisa',
-    variant: 'Cuero Borravino',
-    details: ['Imperial de Calabaza', 'Forrado en Cuero Liso Borravino', 'Virola de Alpaca Lisa'],
-    price: 35000,
-    image: 'images/Imperial_Alpaca_Lisa.png',
-    featured: false
-  },
-  {
-    id: 3,
-    category: 'imperiales',
-    categoryLabel: 'Imperial',
-    name: 'Imperial Premium',
-    variant: 'Cuero Crudo',
-    details: ['Imperial de Calabaza', 'Forrado en Cuero Crudo', 'Virola de Alpaca Lisa'],
-    price: 55000,
-    image: 'images/Imperial_Premium.png',
-    featured: true
-  },
-  {
-    id: 4,
-    category: 'imperiales',
-    categoryLabel: 'Imperial',
-    name: 'Imperial Algarrobo',
-    variant: '',
-    details: ['Imperial de Algarrobo', 'Virola de Alpaca'],
-    price: 29000,
-    image: 'images/Imperial_Algarrobo.png',
-    featured: false
-  },
-
-  // ── MATES TORPEDOS ──
-  {
-    id: 5,
-    category: 'torpedos',
-    categoryLabel: 'Torpedo',
-    name: 'Torpedo Cincelado',
-    variant: 'Cuero Negro',
-    details: ['Torpedo de Calabaza', 'Forrado en Cuero Liso Negro', 'Virola de Alpaca Cincelada'],
-    price: 35000,
-    image: 'images/Torpedo_Cincelado_Negro.png',
-    featured: false
-  },
-  {
-    id: 6,
-    category: 'torpedos',
-    categoryLabel: 'Torpedo',
-    name: 'Torpedo Cincelado',
-    variant: 'Cuero Borravino',
-    details: ['Torpedo de Calabaza', 'Forrado en Cuero Liso Borravino', 'Virola de Alpaca Cincelada'],
-    price: 35000,
-    image: 'images/Torpedo_Cincelado_Borravino.png',
-    featured: false
-  },
-  {
-    id: 7,
-    category: 'torpedos',
-    categoryLabel: 'Torpedo',
-    name: 'Torpedo Premium',
-    variant: 'Cuero Crudo',
-    details: ['Torpedo de Calabaza', 'Forrado en Cuero Crudo', 'Virola de Alpaca Cincelada'],
-    price: 55000,
-    image: 'images/Torpedo_Premium.png',
-    featured: true
-  },
-  {
-    id: 8,
-    category: 'torpedos',
-    categoryLabel: 'Torpedo',
-    name: 'Torpedo Rey',
-    variant: '',
-    details: ['Torpedo de Algarrobo', 'Virola de Alpaca Cincelada', '2 Aros de Bronce'],
-    price: 38000,
-    image: 'images/Torpedo_Rey.png',
-    featured: false
-  },
-
-  // ── MATES CAMIONEROS ──
-  {
-    id: 9,
-    category: 'camioneros',
-    categoryLabel: 'Camionero',
-    name: 'Camionero Acero Liso',
-    variant: 'Cuero Negro',
-    details: ['Camionero de Calabaza', 'Forrado en Cuero Liso Negro', 'Virola de Acero Lisa'],
-    price: 26500,
-    image: 'images/Camionero_Acero_Liso_Negro.png',
-    featured: false
-  },
-  {
-    id: 10,
-    category: 'camioneros',
-    categoryLabel: 'Camionero',
-    name: 'Camionero Acero Liso',
-    variant: 'Cuero Borravino',
-    details: ['Camionero de Calabaza', 'Forrado en Cuero Liso Borravino', 'Virola de Acero Lisa'],
-    price: 26500,
-    image: 'images/Camionero_Acero_Liso_Borravino.png',
-    featured: false
-  },
-  {
-    id: 11,
-    category: 'camioneros',
-    categoryLabel: 'Camionero',
-    name: 'Camionero Criollo',
-    variant: '',
-    details: ['Camionero Criollo de Calabaza', 'Base de Cuero'],
-    price: 27000,
-    image: 'images/Camionero_Criollo.png',
-    featured: false
-  },
-  {
-    id: 12,
-    category: 'camioneros',
-    categoryLabel: 'Camionero',
-    name: 'Camionero Algarrobo',
-    variant: '',
-    details: ['Camionero de Algarrobo', 'Virola de Acero Lisa'],
-    price: 23500,
-    image: 'images/Camionero_Algarrobo.png',
-    featured: false
-  },
-  {
-    id: 13,
-    category: 'camioneros',
-    categoryLabel: 'Camionero',
-    name: 'Criollo con Virola',
-    variant: '',
-    details: ['Camionero Criollo de Calabaza', 'Base de Cuero', 'Virola de Acero Lisa'],
-    price: 29000,
-    image: 'images/Criollo_con_Virola.png',
-    featured: false
-  },
-
-  // ── MATE RANCHERO ── (sin foto en el pack)
-  {
-    id: 14,
-    category: 'ranchero',
-    categoryLabel: 'Ranchero',
-    name: 'Ranchero Blanco',
-    variant: '',
-    details: ['Ranchero de Algarrobo', 'Color Blanco'],
-    price: 32000,
-    image: null,
-    featured: false
-  },
-
-  // ── MATE GALLETA ── (sin foto en el pack)
-  {
-    id: 15,
-    category: 'galleta',
-    categoryLabel: 'Galleta',
-    name: 'Mate Galleta',
-    variant: '',
-    details: ['De Calabaza', 'Base de Cuero'],
-    price: 26000,
-    image: null,
-    featured: false
-  },
-
-  // ── MATERAS ──
-  {
-    id: 16,
-    category: 'materas',
-    categoryLabel: 'Matera',
-    name: 'Matera Simil Cuero',
-    variant: 'Negra',
-    details: ['Matera Simil Cuero Reforzada', 'Con Separador', 'Color Negra'],
-    price: 22500,
-    image: 'images/Matera_Simil_Cuero.png',
-    featured: false
-  },
-  {
-    id: 17,
-    category: 'materas',
-    categoryLabel: 'Matera',
-    name: 'Portamate Cuero',
-    variant: 'Negro y Marron',
-    details: ['Portamate 100% Cuero', 'Color Negro y Marron Claro'],
-    price: 23000,
-    image: 'images/Portamate_Cuero.png',
-    featured: false
-  },
-
-  // ── BOMBILLAS ──
-  {
-    id: 18,
-    category: 'bombillas',
-    categoryLabel: 'Bombilla',
-    name: 'Pico Loro Acero',
-    variant: '',
-    details: ['Bombilla Pico Loro', 'De Acero Inoxidable'],
-    price: 8000,
-    image: 'images/Pico_Loro_Acero.png',
-    featured: false
-  },
-
-  // ── BOMBILLONES ──
-  {
-    id: 19,
-    category: 'bombillones',
-    categoryLabel: 'Bombillon',
-    name: 'Pico Loro Premium',
-    variant: '',
-    details: ['Bombillon Pico Loro', 'De Alpaca y Bronce'],
-    price: 35000,
-    image: 'images/Pico_Loro_Premium.png',
-    featured: false
-  },
-
-  // ── TERMOS ──
-  {
-    id: 20,
-    category: 'termos',
-    categoryLabel: 'Termo',
-    name: 'Termo Media Manija',
-    variant: 'Color Negro',
-    details: ['Termo de Acero', 'Color Negro'],
-    price: 26800,
-    image: 'images/Termo_Media_Manija.png',
-    featured: false
-  }
-];
-
-// ── STATE ──
+let products = [];
 let cart = [];
 let activeFilter = 'all';
 
-// ── HELPERS ──
 function formatPrice(n) {
   return '$' + n.toLocaleString('es-AR');
 }
@@ -275,9 +34,9 @@ function renderProducts() {
            <span class="ph-label">${p.name}${p.variant ? ' · ' + p.variant : ''}</span>
          </div>`;
 
-    const badgeHtml = p.featured ? '<span class="product-badge">PREMIUM</span>' : '';
-    const variantHtml = p.variant ? `<div class="product-variant">${p.variant}</div>` : '';
-    const detailsHtml = p.details.map(d => `<li>${d}</li>`).join('');
+    const badgeHtml   = p.featured ? '<span class="product-badge">PREMIUM</span>' : '';
+    const variantHtml = p.variant  ? `<div class="product-variant">${p.variant}</div>` : '';
+    const detailsHtml = (p.details || []).map(d => `<li>${d}</li>`).join('');
 
     return `
       <div class="product-card" data-id="${p.id}">
@@ -365,7 +124,7 @@ function flashAddButton(id) {
   }, 1600);
 }
 
-// ── UPDATE CART UI ──
+// ── CART UI ──
 function updateCartUI() {
   const count = cart.reduce((s, i) => s + i.qty, 0);
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -375,9 +134,7 @@ function updateCartUI() {
   badge.classList.toggle('visible', count > 0);
 
   document.getElementById('cartTotal').textContent = formatPrice(total);
-
-  const checkoutBtn = document.getElementById('checkoutBtn');
-  checkoutBtn.disabled = cart.length === 0;
+  document.getElementById('checkoutBtn').disabled  = cart.length === 0;
 
   renderCartItems();
 }
@@ -401,25 +158,22 @@ function renderCartItems() {
       : `<svg viewBox="0 0 24 24" fill="none" stroke="#C9A87C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><ellipse cx="12" cy="16" rx="7" ry="5"/><path d="M8.5 11V9a3.5 3.5 0 017 0v2"/><line x1="12" y1="9" x2="15" y2="4"/><path d="M10.5 8C9 6 7 5 7 5s.5 2 2 3"/></svg>`;
 
     const variantLabel = item.variant ? ' - ' + item.variant : '';
-    const subtotal = formatPrice(item.price * item.qty);
 
     return `
       <div class="cart-item">
-        <div class="cart-item-thumb">
-          ${thumbHtml}
-        </div>
+        <div class="cart-item-thumb">${thumbHtml}</div>
         <div class="cart-item-info">
           <div class="cart-item-name">${item.name}${variantLabel}</div>
-          <div class="cart-item-sub">${item.details[0]}</div>
+          <div class="cart-item-sub">${(item.details || [])[0] || ''}</div>
           <div class="cart-item-controls">
-            <button class="qty-btn" onclick="updateQty(${item.id}, -1)" aria-label="Restar">&#8722;</button>
+            <button class="qty-btn" onclick="updateQty(${item.id}, -1)">&#8722;</button>
             <span class="qty-display">${item.qty}</span>
-            <button class="qty-btn" onclick="updateQty(${item.id}, 1)" aria-label="Sumar">+</button>
+            <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
           </div>
         </div>
         <div class="cart-item-right">
-          <span class="cart-item-price">${subtotal}</span>
-          <button class="cart-item-remove" onclick="removeFromCart(${item.id})" aria-label="Eliminar">&#10005;</button>
+          <span class="cart-item-price">${formatPrice(item.price * item.qty)}</span>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">&#10005;</button>
         </div>
       </div>`;
   }).join('');
@@ -443,22 +197,20 @@ function checkout() {
   if (cart.length === 0) return;
 
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-
   let msg = 'Hola Equipo Matero! Quiero hacer el siguiente pedido:\n\n';
 
   cart.forEach(item => {
-    const variant = item.variant ? ' (' + item.variant + ')' : '';
-    msg += '* ' + item.name + variant + ' x' + item.qty + '  ->  ' + formatPrice(item.price * item.qty) + '\n';
+    const v = item.variant ? ' (' + item.variant + ')' : '';
+    msg += '* ' + item.name + v + ' x' + item.qty + '  ->  ' + formatPrice(item.price * item.qty) + '\n';
   });
 
   msg += '\nTOTAL: ' + formatPrice(total) + '\n\n';
   msg += 'Pueden confirmar disponibilidad y coordinar el envio? Muchas gracias!';
 
-  const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
-  window.open(url, '_blank');
+  window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
-// ── HEADER SCROLL ──
+// ── SCROLL HEADER ──
 function initScrollEffect() {
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
@@ -468,14 +220,12 @@ function initScrollEffect() {
 
 // ── MOBILE MENU ──
 function initMobileMenu() {
-  const menuBtn = document.getElementById('menuBtn');
+  const menuBtn   = document.getElementById('menuBtn');
   const mobileNav = document.getElementById('mobileNav');
-
   menuBtn.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    menuBtn.classList.toggle('open', isOpen);
+    const open = mobileNav.classList.toggle('open');
+    menuBtn.classList.toggle('open', open);
   });
-
   mobileNav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       mobileNav.classList.remove('open');
@@ -491,15 +241,26 @@ function initSmoothScroll() {
       const target = document.querySelector(a.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      const headerH = document.getElementById('header').offsetHeight;
-      const top = target.getBoundingClientRect().top + window.scrollY - headerH;
+      const top = target.getBoundingClientRect().top + window.scrollY - document.getElementById('header').offsetHeight;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 }
 
 // ── INIT ──
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Cargar productos desde Firestore
+  try {
+    const doc = await db.collection('catalog').doc('products').get();
+    if (doc.exists && doc.data().items && doc.data().items.length > 0) {
+      products = doc.data().items;
+    } else {
+      products = JSON.parse(JSON.stringify(defaultProducts));
+    }
+  } catch (e) {
+    products = JSON.parse(JSON.stringify(defaultProducts));
+  }
+
   renderProducts();
   initFilters();
   initScrollEffect();

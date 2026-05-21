@@ -2,12 +2,8 @@
    EQUIPO MATERO — admin.js
    =================================================== */
 
-// ── CONFIGURACION ──
-// Para cambiar la contraseña, modificá este valor:
 const ADMIN_PASSWORD = 'equipo2025';
-const STORAGE_KEY    = 'em_products';
 
-// ── LABELS POR CATEGORIA ──
 const categoryLabels = {
   imperiales:  'Imperial',
   torpedos:    'Torpedo',
@@ -20,24 +16,29 @@ const categoryLabels = {
   termos:      'Termo'
 };
 
-// ── ESTADO ──
-let products      = [];
-let editingId     = null;
+let products       = [];
+let editingId      = null;
 let deleteTargetId = null;
-let searchQuery   = '';
+let searchQuery    = '';
 
-// ── PERSISTENCIA ──
-function loadProducts() {
+// ── PERSISTENCIA (Firestore) ──
+async function loadProducts() {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) return JSON.parse(saved);
+    const doc = await db.collection('catalog').doc('products').get();
+    if (doc.exists && doc.data().items && doc.data().items.length > 0) {
+      return doc.data().items;
+    }
   } catch (e) {}
-  // Copia profunda de los defaults para no mutar el original
   return JSON.parse(JSON.stringify(defaultProducts));
 }
 
-function saveProducts() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+async function saveProducts() {
+  try {
+    await db.collection('catalog').doc('products').set({ items: products });
+  } catch (e) {
+    showToast('Error al guardar. Verifica la conexion.');
+    console.error(e);
+  }
 }
 
 // ── FORMATO ──
@@ -60,7 +61,6 @@ function renderList() {
     p.categoryLabel.toLowerCase().includes(query)
   );
 
-  // Stats
   document.getElementById('statTotal').textContent   = products.length;
   document.getElementById('statCats').textContent    = new Set(products.map(p => p.category)).size;
   document.getElementById('statPremium').textContent = products.filter(p => p.featured).length;
@@ -77,9 +77,9 @@ function renderList() {
     const placeholderHtml = `<div class="product-thumb-placeholder" ${p.image ? 'style="display:none"' : ''}>
         <svg viewBox="0 0 24 24" fill="none" stroke="#C9A87C" stroke-width="1.5" width="22" height="22" stroke-linecap="round"><ellipse cx="12" cy="16" rx="6" ry="4"/><path d="M8.5 12V10a3.5 3.5 0 017 0v2"/><line x1="12" y1="10" x2="15" y2="5"/></svg>
       </div>`;
-    const variantTag  = p.variant ? ` <span class="variant-tag">${p.variant}</span>` : '';
+    const variantTag   = p.variant ? ` <span class="variant-tag">${p.variant}</span>` : '';
     const premiumBadge = p.featured ? '<span class="premium-badge">PREMIUM</span>' : '';
-    const details     = (p.details || []).join(' · ');
+    const details      = (p.details || []).join(' · ');
 
     return `
       <div class="product-row${p.featured ? ' featured' : ''}" data-id="${p.id}">
@@ -147,12 +147,12 @@ function closeModal() {
 }
 
 // ── GUARDAR PRODUCTO ──
-function saveProduct() {
+async function saveProduct() {
   const name     = document.getElementById('fieldName').value.trim();
   const price    = parseFloat(document.getElementById('fieldPrice').value);
   const category = document.getElementById('fieldCategory').value;
 
-  if (!name)          { showError('fieldName',  'Completá el nombre.');     return; }
+  if (!name)               { showError('fieldName',  'Completá el nombre.');      return; }
   if (!price || price <= 0) { showError('fieldPrice', 'Ingresá un precio válido.'); return; }
 
   const details = [
@@ -175,17 +175,19 @@ function saveProduct() {
     featured: document.getElementById('fieldFeatured').checked
   };
 
-  if (editingId !== null) {
+  const wasEditing = editingId !== null;
+
+  if (wasEditing) {
     const idx = products.findIndex(p => p.id === editingId);
     if (idx !== -1) products[idx] = { ...products[idx], ...data };
-    showToast('Producto actualizado correctamente');
   } else {
     data.id = nextId();
     products.push(data);
-    showToast('Producto agregado correctamente');
   }
 
-  saveProducts();
+  showToast('Guardando...');
+  await saveProducts();
+  showToast(wasEditing ? 'Producto actualizado' : 'Producto agregado');
   renderList();
   closeModal();
 }
@@ -207,9 +209,9 @@ function confirmDelete(id) {
   document.getElementById('confirmOverlay').classList.add('open');
 }
 
-function doDelete() {
+async function doDelete() {
   products = products.filter(p => p.id !== deleteTargetId);
-  saveProducts();
+  await saveProducts();
   renderList();
   document.getElementById('confirmOverlay').classList.remove('open');
   showToast('Producto eliminado');
@@ -217,10 +219,10 @@ function doDelete() {
 }
 
 // ── RESTAURAR DEFAULTS ──
-function resetDefaults() {
+async function resetDefaults() {
   if (!confirm('¿Restaurar el catálogo original? Se van a perder todos los cambios que hiciste.')) return;
   products = JSON.parse(JSON.stringify(defaultProducts));
-  saveProducts();
+  await saveProducts();
   renderList();
   showToast('Catálogo restaurado al original');
 }
@@ -235,13 +237,14 @@ function showToast(msg) {
 }
 
 // ── LOGIN ──
-function tryLogin() {
+async function tryLogin() {
   const val = document.getElementById('passwordInput').value;
   if (val === ADMIN_PASSWORD) {
-    document.getElementById('loginScreen').style.display  = 'none';
-    document.getElementById('adminPanel').style.display   = 'block';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display  = 'block';
     document.getElementById('adminPanel').classList.add('visible');
-    products = loadProducts();
+    showToast('Cargando productos...');
+    products = await loadProducts();
     renderList();
   } else {
     document.getElementById('loginError').style.display = 'block';
@@ -260,17 +263,14 @@ function logout() {
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Login
   document.getElementById('loginBtn').addEventListener('click', tryLogin);
   document.getElementById('passwordInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') tryLogin();
   });
   document.getElementById('logoutBtn').addEventListener('click', logout);
 
-  // Agregar
   document.getElementById('addBtn').addEventListener('click', openAdd);
 
-  // Modal producto
   document.getElementById('modalClose').addEventListener('click', closeModal);
   document.getElementById('cancelBtn').addEventListener('click', closeModal);
   document.getElementById('saveBtn').addEventListener('click', saveProduct);
@@ -278,22 +278,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === document.getElementById('modalOverlay')) closeModal();
   });
 
-  // Confirmar eliminar
   document.getElementById('confirmCancel').addEventListener('click', () => {
     document.getElementById('confirmOverlay').classList.remove('open');
   });
   document.getElementById('confirmOk').addEventListener('click', doDelete);
 
-  // Restaurar
   document.getElementById('resetBtn').addEventListener('click', resetDefaults);
 
-  // Buscar
   document.getElementById('searchInput').addEventListener('input', e => {
     searchQuery = e.target.value;
     renderList();
   });
 
-  // Escape cierra modales
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     closeModal();
