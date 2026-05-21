@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
+  <defs>
+    <!-- Arco para el texto superior -->
+    <path id="topArc" d="M 22,100 A 78,78 0 0,1 178,100"/>
+  </defs>
+
+  <!-- Círculo exterior -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#2C1A0E" stroke-width="5"/>
+
+  <!-- EQUIPO MATERO en arco -->
+  <text
+    fill="#2C1A0E"
+    font-family="'Arial Black', 'Arial Bold', Arial, Helvetica, sans-serif"
+    font-size="14.5"
+    font-weight="900"
+    letter-spacing="3.2"
+  >
+    <textPath href="#topArc" xlink:href="#topArc" startOffset="50%" text-anchor="middle">EQUIPO MATERO</textPath>
+  </text>
+
+  <!-- ── ILUSTRACIÓN DEL MATE ── -->
+
+  <!-- Cuerpo del mate (forma de calabaza) -->
+  <path
+    d="M 90,114
+       C 76,118 71,133 71,150
+       C 71,164 83,173 100,173
+       C 117,173 129,164 129,150
+       C 129,133 124,118 110,114 Z"
+    fill="none"
+    stroke="#2C1A0E"
+    stroke-width="4"
+    stroke-linejoin="round"
+  />
+
+  <!-- Cuello del mate -->
+  <path
+    d="M 90,114
+       C 90,106 94,102 100,102
+       C 106,102 110,106 110,114"
+    fill="none"
+    stroke="#2C1A0E"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Boca / aro superior -->
+  <ellipse cx="100" cy="101" rx="10" ry="3.5"
+    fill="none" stroke="#2C1A0E" stroke-width="3.5"/>
+
+  <!-- Hoja izquierda -->
+  <path
+    d="M 89,98
+       C 80,89 79,75 86,68
+       C 90,76 92,89 89,98 Z"
+    fill="#2C1A0E"
+  />
+
+  <!-- Hoja central -->
+  <path
+    d="M 98,96
+       C 93,85 94,70 100,64
+       C 103,73 103,86 98,96 Z"
+    fill="#2C1A0E"
+  />
+
+  <!-- Hoja derecha -->
+  <path
+    d="M 107,97
+       C 113,86 114,72 109,66
+       C 106,74 104,87 107,97 Z"
+    fill="#2C1A0E"
+  />
+
+  <!-- Bombilla (caño) -->
+  <line
+    x1="108" y1="108"
+    x2="128" y2="66"
+    stroke="#2C1A0E"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+  <!-- Punta curva de la bombilla -->
+  <path
+    d="M 126,68 Q 131,60 138,59"
+    fill="none"
+    stroke="#2C1A0E"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+</svg>
